@@ -1,10 +1,12 @@
-import './App.css'
+import FlashCard from './components/Flashcard'
+import Intro from './components/Intro'
 
 function App() {
 
   return (
-    <div className="App">
-      All set
+    <div>
+      <Intro />
+      <FlashCard />
     </div>
   )
 }
