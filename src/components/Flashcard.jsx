@@ -16,17 +16,28 @@ const flashcardsData = [
 ];
 
 const FlashCard = () => {
-    const [isFlipped, setIsFlipped] = useState(false);
-    const [backgroundColor, setBackgroundColor] = useState('#ed7d45');
-    const [currentCardIndex, setCurrentCardIndex] = useState(0);
-    const currentFlashcard = flashcardsData[currentCardIndex];
-    const [imageOnCard, setImageOnCard] = useState(true);
-
-    const colors = ['#42b6f5', '#7542f5', '#f5429e', '#ffff00', '#e8cd54'];
+    const [isFlipped, setIsFlipped] = useState(false); //when card is flipped
+    const [backgroundColor, setBackgroundColor] = useState('#ed7d45'); //background color for flashcard
+    const [currentCardIndex, setCurrentCardIndex] = useState(0); //value of current card index
+    const currentFlashcard = flashcardsData[currentCardIndex]; //current flashcard
+    const [imageOnCard, setImageOnCard] = useState(true); //for the image on flashcard
+    const [inputValue, setInputValue] = useState(""); //for input
+    const [count,setCount] = useState(0);
+    const colors = ['#42b6f5', '#7542f5', '#f5429e', '#ffff00', '#e8cd54']; //some colors for flashcard
 
     const handleClick = () =>{
         setIsFlipped(!isFlipped);
         setImageOnCard(!imageOnCard);
+    }
+
+    //for input
+    const handleInput = (e) => {
+        setInputValue(e.target.value);
+    }
+    const checkAnswerBtn = () =>{
+        if(inputValue.toLowerCase() == currentFlashcard.answer.toLowerCase()){
+            setCount(count +1);
+        }
     }
 
     const handleForwardClick = () =>{
@@ -37,8 +48,22 @@ const FlashCard = () => {
         setBackgroundColor(randomColor);
         setImageOnCard(true);
     }
+
+    const handleBackwardClick = () =>{
+        //to change the background color of the flashcard
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        if(currentCardIndex>0){
+            setCurrentCardIndex((currentCardIndex-1)%flashcardsData.length);
+            setBackgroundColor(randomColor);
+            setIsFlipped(false);
+            setImageOnCard(true);
+        }
+    }
     return(
         <div>
+            <div className="countCorrectAnswer">
+                <span>Current Streak: </span><span>{count}</span>
+            </div>
             <div className="mainCard">
                 <div style={{backgroundColor: backgroundColor}} className={`flashcard ${isFlipped ? "flipped":""}`} onClick={handleClick}>
                     <div className="front">
@@ -53,7 +78,13 @@ const FlashCard = () => {
                 </div>
             </div>
             <br/>
+            <div className="input">
+                <strong>Enter your guess here: </strong>
+                <input type="text" name="guess" value={inputValue} onChange={handleInput}/>
+                <button onClick={checkAnswerBtn}>Submit</button>
+            </div>
             <div className="btn">
+                <button onClick={handleBackwardClick}>←</button>
                 <button onClick={handleForwardClick}>→</button>
             </div>
         </div>

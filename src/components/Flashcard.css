@@ -46,3 +46,17 @@
     justify-content: center;
     display: flex;
 }
+
+.input{
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.countCorrectAnswer{
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
