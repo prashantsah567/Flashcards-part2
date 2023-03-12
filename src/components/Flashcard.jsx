@@ -10,27 +10,39 @@ const FlashCard = () => {
     const currentFlashcard = FlashcardsData[currentCardIndex]; //current flashcard
     const [imageOnCard, setImageOnCard] = useState(true); //for the image on flashcard
     const [inputValue, setInputValue] = useState(""); //for input
-    const [count,setCount] = useState(0); //to count the current streak
+    const [currentCount,setCurrentCount] = useState(0); //to count the current streak
+    const [longestCount, setLongestCount] = useState(0);
     const colors = ['#42b6f5', '#7542f5', '#f5429e', '#ffff00', '#e8cd54']; //some colors for flashcard
+    const [isSubmitBtnClicked, setIsSubmitBtnClicked] = useState(false); //to check if the submit button is already clicked
+    
 
     const handleFalshCardClick = () =>{
         setIsFlipped(!isFlipped);
         setImageOnCard(!imageOnCard);
     }
 
-    //for input
+    //for handling input
     const handleInput = (e) => {
         setInputValue(e.target.value);
     }
+
     const submitBtn = () =>{
-        //to blink the border of input box
-        if(inputValue.toLowerCase() == currentFlashcard.answer.toLowerCase() && !isFlipped){
-            setCount(count +1);
+        if((inputValue.toLowerCase() == currentFlashcard.answer.toLowerCase() && !isFlipped) && !isSubmitBtnClicked){
+            setIsSubmitBtnClicked(true);
+            setCurrentCount(currentCount +1);
+            // setLongestCount(longestCount +1);
         }else{
+            //to blink the border of input box
             const input = document.getElementById("myInputId");
             input.classList.remove("error-border");
             void input.offsetWidth;
             input.classList.add("error-border");
+            
+            //to reset the current streak and set value of longest streak
+            if(currentCount>longestCount){
+                setLongestCount(currentCount);
+            }
+            setCurrentCount(0);
         }
     }
 
@@ -42,6 +54,7 @@ const FlashCard = () => {
         setBackgroundColor(randomColor);
         setImageOnCard(true);
         setInputValue("");
+        setIsSubmitBtnClicked(false);//again reset the value for the click of submit button
     }
 
     const handleBackwardClick = () =>{
@@ -58,7 +71,8 @@ const FlashCard = () => {
     return(
         <div>
             <div className="countCorrectAnswer">
-                <span>Current Streak: </span><span>{count}</span>
+                <span>Current Streak: </span><span>{currentCount}</span>
+                <span>, Longest Streak: </span><span>{longestCount}</span>
             </div>
             <div className="mainCard">
                 <div style={{backgroundColor: backgroundColor}} className={`flashcard ${isFlipped ? "flipped":""}`} onClick={handleFalshCardClick}>
