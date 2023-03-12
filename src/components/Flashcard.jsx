@@ -4,6 +4,7 @@ import codeSnippet from '../assets/codeSnippet.png';
 import {FlashcardsData} from "./QAdata";
 
 const FlashCard = () => {
+    const colors = ['#42b6f5', '#7542f5', '#f5429e', '#ffff00', '#e8cd54']; //some colors for flashcard
     const [isFlipped, setIsFlipped] = useState(false); //when card is flipped
     const [backgroundColor, setBackgroundColor] = useState('#ed7d45'); //background color for flashcard
     const [currentCardIndex, setCurrentCardIndex] = useState(0); //value of current card index
@@ -11,8 +12,7 @@ const FlashCard = () => {
     const [imageOnCard, setImageOnCard] = useState(true); //for the image on flashcard
     const [inputValue, setInputValue] = useState(""); //for input
     const [currentCount,setCurrentCount] = useState(0); //to count the current streak
-    const [longestCount, setLongestCount] = useState(0);
-    const colors = ['#42b6f5', '#7542f5', '#f5429e', '#ffff00', '#e8cd54']; //some colors for flashcard
+    const [longestCount, setLongestCount] = useState(0); //to keep track of the longest streak
     const [isSubmitBtnClicked, setIsSubmitBtnClicked] = useState(false); //to check if the submit button is already clicked
     
 
@@ -70,6 +70,7 @@ const FlashCard = () => {
     }
     return(
         <div>
+            <br/>
             <div className="countCorrectAnswer">
                 <span>Current Streak: </span><span>{currentCount}</span>
                 <span>, Longest Streak: </span><span>{longestCount}</span>
