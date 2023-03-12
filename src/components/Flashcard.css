@@ -60,3 +60,14 @@
     justify-content: center;
     display: flex;
 }
+
+/* for the blinking of the input box */
+.error-border {
+    animation: blink-border 2s;
+  }
+
+  @keyframes blink-border {
+    0% { border-color: red; }
+    50% { border-color: transparent; }
+    100% { border-color: red; }
+  }
