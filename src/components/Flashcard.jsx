@@ -37,6 +37,7 @@ const FlashCard = () => {
     const checkAnswerBtn = () =>{
         if(inputValue.toLowerCase() == currentFlashcard.answer.toLowerCase()){
             setCount(count +1);
+            document.getElementsByClassName('guessValue').style.border = '5px solid green';
         }
     }
 
@@ -47,6 +48,7 @@ const FlashCard = () => {
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         setBackgroundColor(randomColor);
         setImageOnCard(true);
+        setInputValue("");
     }
 
     const handleBackwardClick = () =>{
@@ -58,6 +60,7 @@ const FlashCard = () => {
             setIsFlipped(false);
             setImageOnCard(true);
         }
+        setInputValue("");
     }
     return(
         <div>
@@ -80,7 +83,7 @@ const FlashCard = () => {
             <br/>
             <div className="input">
                 <strong>Enter your guess here: </strong>
-                <input type="text" name="guess" value={inputValue} onChange={handleInput}/>
+                <input type="text" className="guessValue" value={inputValue} onChange={handleInput}/>
                 <button onClick={checkAnswerBtn}>Submit</button>
             </div>
             <div className="btn">
