@@ -31,7 +31,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-
+![Gif walkthrough of the project](src/assets/project-3-fashcard-part2.gif)
 
 ## Notes
 
