@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import "./FlashCard.css";
 import codeSnippet from '../assets/codeSnippet.png';
 import {FlashcardsData} from "./QAdata";
+import Fuse from 'fuse.js';
 
 const FlashCard = () => {
     const colors = ['#42b6f5', '#7542f5', '#f5429e', '#ffff00', '#e8cd54']; //some colors for flashcard
@@ -15,6 +16,11 @@ const FlashCard = () => {
     const [longestCount, setLongestCount] = useState(0); //to keep track of the longest streak
     const [isSubmitBtnClicked, setIsSubmitBtnClicked] = useState(false); //to check if the submit button is already clicked
     
+    //for the fuzzy matching implementation
+    const options = {
+        includeScore: true,
+        threshold: 0.5
+    };
 
     const handleFalshCardClick = () =>{
         setIsFlipped(!isFlipped);
@@ -27,7 +33,12 @@ const FlashCard = () => {
     }
 
     const submitBtn = () =>{
+        // const fuse = new Fuse(currentFlashcard.answer.toLowerCase(), options);
+        // const results = fuse.search(inputValue.toLowerCase());
+        // const similarityScore = results[0] ? results[0].score : 0;
+        
         if((inputValue.toLowerCase() == currentFlashcard.answer.toLowerCase() && !isFlipped) && !isSubmitBtnClicked){
+        //if((similarityScore >= 0.5 && !isFlipped) && !isSubmitBtnClicked){
             setIsSubmitBtnClicked(true);
             setCurrentCount(currentCount +1);
             // setLongestCount(longestCount +1);
